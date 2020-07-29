@@ -2,7 +2,26 @@
   margin: 0;
   padding: 0;
 }
-
 input {
   outline: none;
+  width: 100%;
+}
+
+.container-fluid {
+  font-family: Georgia;
+  font-style: italic;
+  max-width: 300px;
+  padding: 5%;
+}
+
+#name {
+  text-align: center;
+}
+
+.btn-primary {
+  margin-right: 20%;
+}
+
+#references {
+  margin: 5% 0;
 }

@@ -69,16 +69,18 @@ function setAttrib(elem,attributes) {
 function createReference(val) {
     let elem;
     for(key in val) {
-        console.log(1)
         if(typeof val[key]=='object') {
             elem=document.createElement(key);
             elem=setAttrib(elem,val[key]);
         }
-        if((key=='text without ref')||(key=='text'))
+        if(key=='text without ref')
             elem=document.createElement('div');
-        if(key=='ref')
+        if(key=='text')
             elem=document.createElement('a');
-            console.log(elem)
+        if(key=='ref') {
+            elem.setAttribute('href',val[key]);
+            break;
+        }
         elem.innerHTML=val[key];
         document.getElementById('references').appendChild(elem);
     }
@@ -86,6 +88,7 @@ function createReference(val) {
 
 function createReButtons(val) {
     button=document.createElement('button');
+    button.className='btn btn-primary';
     button.innerHTML=val.text;
     document.getElementById('buttons').appendChild(button);
 }
