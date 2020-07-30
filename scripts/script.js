@@ -4,6 +4,7 @@ function showFile(input) {
     let reader=new FileReader();
     reader.readAsText(file);
     reader.onload=function() {
+        document.getElementById('file').style.display='none';
         stringFile=reader.result;
         forma=JSON.parse(stringFile);
         for(key in forma) {

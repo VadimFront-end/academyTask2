@@ -12,8 +12,11 @@
   </head>
   <body>
     <div class="container-fluid">
-      <input type="file" onchange="showFile(this)">
-      <h1 id="name"></h1>
+      <input
+        id="file" 
+        type="file" 
+        onchange="showFile(this)">
+      <h3 id="name"></h3>
       <div id="fields"></div>
       <div id="references"></div>
       <div id="buttons"></div>
