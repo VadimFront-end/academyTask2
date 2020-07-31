@@ -18,7 +18,6 @@ function createForm(key,val) {
         case 'name' : {
             let element=document.createElement('div');
             element.innerHTML=val;
-            console.log(element)
             document.getElementById('name').appendChild(element);
             break;
         }
@@ -46,11 +45,11 @@ function createForm(key,val) {
 let id=0;
 function createField(val) {
     for(key in val) {
-        console.log(key,val[key])
+        // console.log(key,val[key])
         let element=document.createElement(key);
         if(typeof val[key]=="object") {
-            element=setAttrib(element,val[key]);
             element.id=`elem${id}`;
+            element=setAttrib(element,val[key]);
         }
         else {
             element.setAttribute('for',`elem${id}`);
@@ -62,6 +61,8 @@ function createField(val) {
 
 function setAttrib(elem,attributes) {
     for(attrbt in attributes) {
+        if(attrbt=='technologies')createSelect(attributes[attrbt]);
+        if(attrbt=='mask')createMask(attributes[attrbt],elem);
         elem.setAttribute(attrbt,attributes[attrbt]);
     }
     return elem;
@@ -92,4 +93,30 @@ function createReButtons(val) {
     button.className='btn btn-primary';
     button.innerHTML=val.text;
     document.getElementById('buttons').appendChild(button);
+}
+let kostil=0;
+function createSelect(arr) {
+    kostil=id;
+    let elem=document.createElement('select');
+    elem.setAttribute('onclick','toInput(value)');
+    elem.setAttribute('multiple',true);
+    document.getElementById('fields').appendChild(elem);
+    for(let i=0;i<arr.length;i++) {
+        let opt=document.createElement('option');
+        opt.setAttribute('value',arr[i]);
+        opt.innerHTML=arr[i];
+        elem.appendChild(opt);
+    }
+}
+
+function toInput(val) {
+    if(document.getElementById(`elem${kostil}`).value.split(' ').includes(val))return;
+    document.getElementById(`elem${kostil}`).value+=' '+ val;
+}
+
+function createMask(mask,elem) {
+    $(function(){
+        elem.removeAttribute('type');
+        $(elem).mask(mask);
+      });
 }
