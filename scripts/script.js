@@ -45,9 +45,8 @@ function createForm(key,val) {
 let id=0;
 function createField(val) {
     for(key in val) {
-        // console.log(key,val[key])
         let element=document.createElement(key);
-        if(typeof val[key]=="object") {
+        if(typeof val[key]==="object") {
             element.id=`elem${id}`;
             element=setAttrib(element,val[key]);
         }
@@ -61,12 +60,12 @@ function createField(val) {
 
 function setAttrib(elem,attributes) {
     for(attrbt in attributes) {
-        if((attrbt=='technologies')||(attrbt=='colors')) {
+        if((attrbt==='technologies')||(attrbt==='colors')) {
             createSelect(attributes[attrbt]);
             elem.setAttribute('disabled',true);
         }
-        if(attrbt=='mask')createMask(attributes[attrbt],elem);
-        if(attributes[attrbt]=='textarea')elem=createTextArea();
+        if(attrbt==='mask')createMask(attributes[attrbt],elem);
+        if(attributes[attrbt]==='textarea')elem=createTextArea();
         elem.setAttribute(attrbt,attributes[attrbt]);
     }
     return elem;
@@ -75,15 +74,15 @@ function setAttrib(elem,attributes) {
 function createReference(val) {
     let elem;
     for(key in val) {
-        if(typeof val[key]=='object') {
+        if(typeof val[key]==='object') {
             elem=document.createElement(key);
             elem=setAttrib(elem,val[key]);
         }
-        if(key=='text without ref')
+        if(key==='text without ref')
             elem=document.createElement('div');
-        if(key=='text')
+        if(key==='text')
             elem=document.createElement('a');
-        if(key=='ref') {
+        if(key==='ref') {
             elem.setAttribute('href',val[key]);
             break;
         }
@@ -108,14 +107,19 @@ function createSelect(arr) {
     for(let i=0;i<arr.length;i++) {
         let opt=document.createElement('option');
         opt.setAttribute('value',arr[i]);
-        opt.innerHTML=arr[i];
+        console.log(arr[i],arr[i].indexOf('#'))
+        if(arr[i].split('')[0]==='#') {
+            opt.style.backgroundColor=arr[i];
+            opt.style.width=20+'px';
+        }
+        else opt.innerHTML=arr[i];
         elem.appendChild(opt);
     }
 }
 
 function toInput(val) {
     if(document.getElementById(`elem${kostil}`).value.split(' ').includes(val))return;
-    if(val.split('')[0]=='#')document.getElementById(`elem${kostil}`).value=val;
+    if(val.split('')[0]==='#')document.getElementById(`elem${kostil}`).value=val;
     else document.getElementById(`elem${kostil}`).value+=' '+ val;
     
 }
