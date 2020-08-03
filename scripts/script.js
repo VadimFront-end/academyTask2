@@ -61,8 +61,12 @@ function createField(val) {
 
 function setAttrib(elem,attributes) {
     for(attrbt in attributes) {
-        if(attrbt=='technologies')createSelect(attributes[attrbt]);
+        if((attrbt=='technologies')||(attrbt=='colors')) {
+            createSelect(attributes[attrbt]);
+            elem.setAttribute('disabled',true);
+        }
         if(attrbt=='mask')createMask(attributes[attrbt],elem);
+        if(attributes[attrbt]=='textarea')elem=createTextArea();
         elem.setAttribute(attrbt,attributes[attrbt]);
     }
     return elem;
@@ -111,7 +115,9 @@ function createSelect(arr) {
 
 function toInput(val) {
     if(document.getElementById(`elem${kostil}`).value.split(' ').includes(val))return;
-    document.getElementById(`elem${kostil}`).value+=' '+ val;
+    if(val.split('')[0]=='#')document.getElementById(`elem${kostil}`).value=val;
+    else document.getElementById(`elem${kostil}`).value+=' '+ val;
+    
 }
 
 function createMask(mask,elem) {
@@ -119,4 +125,10 @@ function createMask(mask,elem) {
         elem.removeAttribute('type');
         $(elem).mask(mask);
       });
+}
+
+function createTextArea() {
+    let elem=document.createElement('textarea');
+    document.getElementById('fields').appendChild(elem);
+    return elem;
 }
